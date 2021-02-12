@@ -8,7 +8,7 @@
   <h3 align="center">KVM Deployment</h3>
 
   <p align="center">
-    Deploy KVM with Ansible
+    Deploy KVM with Ansible for a virtualized LAB running with VIRSH.
     <br />
   </p>
 </p>
