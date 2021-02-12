@@ -25,11 +25,21 @@
   </ol>
 </details>
 
+## Notes
+- Templates hochladen für virsh
+- Scripttemplate von Mel
+- Backup Script von Chris
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
+This Project was created to autodeploy a virtual and easy to handle LAB based on Linux. The deployment is managed by ansible and will do the following tasks:
+- Install Virsh
+- aaa
+- bbb
+- ccc
+- ddd
+- eee
 
 <!-- GETTING STARTED -->
 ## Getting Started
