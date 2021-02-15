@@ -1,0 +1,35 @@
+-- Install
+
+dnf install @virt -y
+sudo dnf -y install virt-top libguestfs-tools
+
+-- Configure Network
+--- WAN01
+nmcli connection add type bridge autoconnect yes con-name wan01 ifname wan01
+nmcli connection modify wan01 ipv4.addresses 10.255.255.1/29 ipv4.method manual
+nmcli con up wan01
+--- LAN01
+nmcli connection add type bridge autoconnect yes con-name lan01 ifname lan01
+nmcli con up lan01
+--- LAN02
+nmcli connection add type bridge autoconnect yes con-name lan02 ifname lan02
+nmcli con up lan02
+
+--- define in virsh
+-> Create XML per IF
+<network>
+  <name>wan01</name>
+  <forward mode="bridge"/>
+  <bridge name="wan01" />
+</network>
+
+virsh net-define bridge.xml
+
+--- Adapter starten
+virsh net-start wan01
+virsh net-start lan01
+virsh net-start lan02
+
+virsh net-autostart wan01
+virsh net-autostart lan01
+virsh net-autostart lan02
