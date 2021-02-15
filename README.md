@@ -35,11 +35,9 @@
 ## About The Project
 This Project was created to autodeploy a virtual and easy to handle LAB based on Linux. The deployment is managed by ansible and will do the following tasks:
 - Install Virsh
-- aaa
-- bbb
-- ccc
-- ddd
-- eee
+
+STEPS TO INSTALL:
+- 
 
 <!-- GETTING STARTED -->
 ## Getting Started
