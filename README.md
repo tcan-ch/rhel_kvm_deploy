@@ -37,7 +37,10 @@ This Project was created to autodeploy a virtual and easy to handle LAB based on
 - Install Virsh
 
 STEPS TO INSTALL:
-- 
+
+- Install NANO
+- Install VIRSH
+- Configure Network
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -50,6 +53,10 @@ To get a local copy up and running follow these simple steps.
 - Installed all updates
   ```sh
   dnf update -y
+  ```
+- Ansible installed
+  ```sh
+  dnf install ansible -y
   ```
 
 ### Installation
