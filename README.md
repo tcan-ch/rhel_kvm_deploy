@@ -49,7 +49,8 @@ To get a local copy up and running follow these simple steps.
 - Registered and Subscribed to RHEL Dev Program
 - Installed all updates
   ```sh
-  dnf update -y```
+  dnf update -y
+  ```
 
 ### Installation
 
