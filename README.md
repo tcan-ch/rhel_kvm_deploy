@@ -48,7 +48,7 @@ To get a local copy up and running follow these simple steps.
 - RHEL 8.3 Installation
 - Registered and Subscribed to RHEL Dev Program
 - Installed all updates
-*dnf update -y
+  ```dnf update -y```
 
 ### Installation
 
