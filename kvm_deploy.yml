@@ -6,5 +6,5 @@
     - vars/main.yml
     - ../var_{{ rolename }}.yml
 
-  roles:
-    - role: rhel_kvm_deploy
+  tasks:
+    - include: tasks/main.yml
