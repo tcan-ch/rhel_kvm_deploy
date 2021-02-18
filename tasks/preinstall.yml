@@ -1,0 +1,6 @@
+---
+# Installing prerequisites
+collections:
+  # Install libvirt collection from Ansible Galaxy.
+  - name: community.libvirt
+  
