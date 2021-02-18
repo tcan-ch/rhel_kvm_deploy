@@ -14,3 +14,7 @@
     xml: '{{ lookup("template", "if_lan01.xml.j2") }}'
     state: active
     autostart: yes
+# destory default network
+- community.libvirt.virt_net:
+    command: destroy
+    name: default
