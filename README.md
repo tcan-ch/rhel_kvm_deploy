@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/tcan-ch/kvm_deployment/">
-    <img src="images/tcan.ch_logo_white.png" alt="Logo">
+    <img src="http://tcan.ch/tcan.ch_logo.png" alt="Logo">
   </a>
 
   <h3 align="center">KVM Deployment</h3>
