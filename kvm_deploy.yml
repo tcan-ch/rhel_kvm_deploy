@@ -2,6 +2,9 @@
 - name: Use KVM_LAB Playbook
   hosts: 192.168.1.126
   user: root
+  vars_files:
+    - vars/main.yml
+    - ../var_{{ rolename }}.yml
 
   roles:
     - role: kvm_lab
