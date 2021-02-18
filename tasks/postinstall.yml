@@ -1,7 +1,7 @@
 ---
 # Create new Networks / delete unused Networks
 #- name: create bridged WAN network
-- virt_net:
+- community.libvirt.virt_net:
     command: define
     name: wan01
     xml: '{{ lookup("template", "if_wan01.xml.j2") }}'
