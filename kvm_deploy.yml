@@ -7,4 +7,4 @@
     - ../var_{{ rolename }}.yml
 
   roles:
-    - role: kvm_lab
+    - role: rhel_kvm_deploy
