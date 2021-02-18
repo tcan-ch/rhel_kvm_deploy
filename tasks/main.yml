@@ -1,0 +1,5 @@
+---
+# tasks file for kvm_lab
+# tasks files on main.yml as include arguments
+- include: install.yml
+- include: prepare.yml
