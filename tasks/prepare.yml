@@ -1,0 +1,4 @@
+---
+# Create Network Adapters
+- name: prepare / create bridge interfaces
+  shell:
