@@ -22,4 +22,4 @@
 - name: j2 iptables template deploy
   template:
     src: '{{ lookup("template", "iptables.j2" }}'
-    dest: /etc/sysconfig/iptables
+    dest: /etc/sysconfig/
