@@ -14,3 +14,8 @@
   template:
     src: templates/template_cos.xml.j2
     dest: /srv/kvm/datastore/template/template_cos.xml
+- name: Copy .qcow2 from Webserver
+  get_url:
+    url: http://tcan.ch/repo/template_cos.qcow2
+    dest: /srv/kvm/datastore/template/template_cos.qcow2
+    mode: '0755'
