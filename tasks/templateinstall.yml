@@ -10,7 +10,7 @@
     - '/srv/kvm/datastore/iso'
     - '/srv/kvm/datastore/vm'
 # Copy the Template's
-- name: deploy CentOS Template
+- name: Deploy KVM .xml Templates
   template:
     src: templates/template_cos.xml.j2
     dest: /srv/kvm/datastore/template/template_cos.xml
