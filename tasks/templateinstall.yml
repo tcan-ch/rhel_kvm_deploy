@@ -2,21 +2,22 @@
 # Create the KVM Directories
 - name: Create Direcotries
   ansible.builtin.file:
-    path: /srv/kvm/bin/
-    state: directory
-    mode: '0755'
+    mode: u=rw,g=r,o=r
+    path: /srv/kvm/bin/.stay
+    state: touch
+    mode: u=rw,g=r,o=r
   ansible.builtin.file:
-    path: /srv/kvm/datastore/iso/
-    state: directory
-    mode: '0755'
+    path: /srv/kvm/datastore/iso/.stay
+    state: touch
+    mode: u=rw,g=r,o=r
   ansible.builtin.file:
-    path: /srv/kvm/datastore/vm/
-    state: directory
-    mode: '0755'
+    path: /srv/kvm/datastore/vm/.stay
+    state: touch
+    mode: u=rw,g=r,o=r
   ansible.builtin.file:
-    path: /srv/kvm/datastore/template/
-    state: directory
-    mode: '0755'
+    path: /srv/kvm/datastore/template/.stay
+    state: touch
+    mode: u=rw,g=r,o=r
 # Copy the Template's
 - name: deploy CentOS Template
   template:
