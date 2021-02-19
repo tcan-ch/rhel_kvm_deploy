@@ -21,4 +21,4 @@
 - name: deploy CentOS Template
   template:
     src: templates/template_cos.xml.j2
-    dest: /srv/datastore/template/template_cos.xml
+    dest: /srv/kvm/datastore/template/template_cos.xml
