@@ -99,9 +99,6 @@ COMMIT
 
 # Port Forwarding (ansible)
 # like -A PREROUTING -d 123.4.56.78/32 -i enp0s31f6 -p tcp -m tcp --dport 8443 -j DNAT --to-destination 10.0.0.2:8443
--A PREROUTING -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 8832 -j DNAT --to-destination 10.255.255.6:8832
--A PREROUTING -s 188.60.133.143/32 -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 18832 -j DNAT --to-destination 10.255.255.6:443
--A PREROUTING -s 188.60.133.143/32 -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 28832 -j DNAT --to-destination 10.255.255.1:9090
 -A PREROUTING -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 2222 -j DNAT --to-destination 10.255.255.6:8832
 
 ############################################################
