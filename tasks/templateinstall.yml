@@ -20,5 +20,5 @@
 # Copy the Template's
 - name: deploy CentOS Template
   template:
-    src: '{{ lookup("template", "template_cos.xml.j2") }}'
+    src: templates/template_cos.xml.j2
     dest: /srv/datastore/template/template_cos.xml
