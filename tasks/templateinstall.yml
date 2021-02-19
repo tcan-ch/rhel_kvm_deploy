@@ -2,20 +2,7 @@
 # Create the KVM Directories
 - name: Create Direcotries
   ansible.builtin.file:
-    mode: u=rw,g=r,o=r
-    path: /srv/kvm/bin/.stay
-    state: touch
-    mode: u=rw,g=r,o=r
-  ansible.builtin.file:
-    path: /srv/kvm/datastore/iso/.stay
-    state: touch
-    mode: u=rw,g=r,o=r
-  ansible.builtin.file:
-    path: /srv/kvm/datastore/vm/.stay
-    state: touch
-    mode: u=rw,g=r,o=r
-  ansible.builtin.file:
-    path: /srv/kvm/datastore/template/.stay
+    path: /srv/kvm/bin/.stay, /srv/kvm/datastore/iso/.stay. /srv/kvm/datastore/vm/.stay
     state: touch
     mode: u=rw,g=r,o=r
 # Copy the Template's
