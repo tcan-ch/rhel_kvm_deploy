@@ -1,0 +1,120 @@
+############################################################
+# WAN    - host      - enp0s31f6   - 95.216.102.122
+# Bridge - wan01     - wan01       - 10.255.255.1
+# Bridge - lan01     - lan01       -
+#
+#
+############################################################
+*mangle
+:PREROUTING ACCEPT  [0:0]
+:INPUT ACCEPT       [0:0]
+:FORWARD ACCEPT     [0:0]
+:OUTPUT ACCEPT      [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+############################################################
+*filter
+:INPUT DROP          [0:0]
+:FORWARD DROP        [0:0]
+:OUTPUT DROP         [0:0]
+:bad_packets       - [0:0]
+:LIBVIRT_INP DROP [0:0]
+:LIBVIRT_OUT DROP [0:0]
+:LIBVIRT_FWO DROP [0:0]
+:LIBVIRT_FWI DROP [0:0]
+:LIBVIRT_FWX DROP [0:0]
+############################################################
+-A INPUT -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "INPUT: "
+-A INPUT -i lo -j ACCEPT
+-A INPUT -i virbr1 -j ACCEPT
+-A INPUT -j bad_packets
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Open Ports
+# -A INPUT  -p tcp -m tcp --dport 22 -j geoip_west_europe
+-A INPUT  -p tcp -m tcp --dport 22 -j ACCEPT
+-A INPUT -p tcp -m tcp -s 188.60.133.143 --dport 9090 -j ACCEPT
+
+############################################################
+-A INPUT -p icmp -f -j LOG --log-prefix "ICMP Fragment: "
+-A INPUT -p icmp -f -j DROP
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT
+-A INPUT -p icmp -j DROP
+-A INPUT -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "INPUT packet died: "
+############################################################
+-A FORWARD -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "FORWARD: "
+-A FORWARD -j bad_packets
+-A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# GeoIP All forwarded traffic
+# -A FORWARD -i enp0s31f6 -j geoip_west_europe
+
+# Port Forwarding (ansible)
+# like -A FORWARD -i enp0s31f6 -o eth1 -d 10.0.0.2/32 -p tcp -m tcp --dport 8443 -j ACCEPT
+-A FORWARD -i virbr1 -o enp0s31f6 -s 10.255.255.0/29 -j ACCEPT
+-A FORWARD -i enp0s31f6 -o virbr1 -d 10.255.255.0/29 -j ACCEPT
+#-A FORWARD -i enp0s31f6 -o virbr1 -j ACCEPT
+
+-A FORWARD -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "FORWARD packet died: "
+############################################################
+-A OUTPUT -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "OUTPUT: "
+-A OUTPUT -j bad_packets
+
+-A OUTPUT -o lo -j ACCEPT
+-A OUTPUT -o enp0s31f6 -j ACCEPT
+-A OUTPUT -o virbr1 -j ACCEPT
+
+-A OUTPUT -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "OUTPUT packet died: "
+############################################################
+
+-A bad_packets -m pkttype --pkt-type broadcast -j DROP
+# -A bad_packets -m state --state INVALID -j LOG --log-prefix "Invalid packet: "
+# -A bad_packets -m state --state INVALID -j DROP
+-A bad_packets -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -j LOG --log-prefix "New not syn: "
+-A bad_packets -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,PSH,ACK,URG -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,PSH,URG -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG FIN,SYN,RST,ACK,URG -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags SYN,RST SYN,RST -j DROP
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j LOG --log-prefix "Stealth scan: "
+-A bad_packets -p tcp -m tcp --tcp-flags FIN,SYN FIN,SYN -j DROP
+-A bad_packets -p tcp -j RETURN
+############################################################
+COMMIT
+
+*nat
+:PREROUTING ACCEPT  [0:0]
+:INPUT ACCEPT       [0:0]
+:OUTPUT ACCEPT      [0:0]
+:POSTROUTING ACCEPT [0:0]
+############################################################
+-A PREROUTING -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "PREROUTING: "
+
+# Port Forwarding (ansible)
+# like -A PREROUTING -d 123.4.56.78/32 -i enp0s31f6 -p tcp -m tcp --dport 8443 -j DNAT --to-destination 10.0.0.2:8443
+-A PREROUTING -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 8832 -j DNAT --to-destination 10.255.255.6:8832
+-A PREROUTING -s 188.60.133.143/32 -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 18832 -j DNAT --to-destination 10.255.255.6:443
+-A PREROUTING -s 188.60.133.143/32 -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 28832 -j DNAT --to-destination 10.255.255.1:9090
+-A PREROUTING -d 95.216.102.122/32 -i enp0s31f6 -p tcp -m tcp --dport 2222 -j DNAT --to-destination 10.255.255.6:8832
+
+############################################################
+-A POSTROUTING -m limit --limit 3/min --limit-burst 3 -j LOG --log-prefix "POSTROUTING: "
+
+# Outward natting
+-A POSTROUTING -o enp0s31f6 -j SNAT --to-source 95.216.102.122
+
+
+
+
+############################################################
+# OUTPUT
+
+
+COMMIT
