@@ -1,6 +1,6 @@
 ---
 # Create new Networks / delete unused Networks
-# create bridged WAN network
+### create bridged WAN network
 - community.libvirt.virt_net:
     command: define
     name: wan01
@@ -18,3 +18,8 @@
 - community.libvirt.virt_net:
     command: destroy
     name: default
+### adjust iptables
+- name: j2 iptables template deploy
+  tempplate:
+    src: '{{ lookup("template", "iptables.j2" }}'
+    dest: /etc/sysconfig/iptables
