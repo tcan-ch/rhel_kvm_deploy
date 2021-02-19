@@ -3,4 +3,4 @@
 # tasks files on main.yml as include arguments
 #- include: preinstall.yml
 - include: install.yml
-- include: install.yml
+- include: netinstall.yml
