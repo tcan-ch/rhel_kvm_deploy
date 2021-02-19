@@ -20,6 +20,6 @@
     name: default
 ### adjust iptables
 - name: j2 iptables template deploy
-  tempplate:
+  template:
     src: '{{ lookup("template", "iptables.j2" }}'
     dest: /etc/sysconfig/iptables
