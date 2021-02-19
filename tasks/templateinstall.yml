@@ -5,7 +5,7 @@
     path: "{{ item }}"
     state: directory
     mode: '0755'
-    with_items:
+  with_items:
     - '/srv/kvm/bin'
     - '/srv/kvm/datastore/iso'
     - '/srv/kvm/datastore/vm'
