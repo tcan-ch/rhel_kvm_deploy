@@ -1,1 +1,18 @@
 ---
+- name: Create Direcotries
+  ansible.builtin.file:
+    path: /srv/kvm/bin
+    state: directory
+    mode: '0755'
+    ansible.builtin.file:
+    path: /srv/kvm/datastore/iso
+    state: directory
+    mode: '0755'
+    ansible.builtin.file:
+    path: /srv/kvm/datastore/vm
+    state: directory
+    mode: '0755'
+    ansible.builtin.file:
+    path: /srv/kvm/datastore/template
+    state: directory
+    mode: '0755'
