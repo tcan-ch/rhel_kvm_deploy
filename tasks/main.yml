@@ -4,3 +4,4 @@
 #- include: preinstall.yml
 - include: install.yml
 - include: netinstall.yml
+- include: templateinstall.yml
