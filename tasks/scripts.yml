@@ -1,1 +1,18 @@
 ---
+# Copy AutoScripts
+- name: Copy Scripts for VM Tasks
+  template:
+    src: templates/vm-create.j2
+    dest: /srv/kvm/bin/vm-create
+  template:
+    src: templates/vm-del.j2
+    dest: /srv/kvm/bin/vm-del
+  template:
+    src: templates/vm-list.j2
+    dest: /srv/kvm/bin/vm-list
+  template:
+    src: templates/vm-start.j2
+    dest: /srv/kvm/bin/vm-start
+  template:
+    src: templates/vm-stop.j2
+    dest: /srv/kvm/bin/vm-stop
