@@ -16,3 +16,25 @@
   template:
     src: templates/vm-stop.j2
     dest: /srv/kvm/bin/vm-stop
+# Create symbolic links
+- name: Create a symbolic link
+  ansible.builtin.file:
+    src: /srv/kvm/bin/vm-create
+    dest: /usr/local/sbin/vm-create
+    state: link
+  ansible.builtin.file:
+    src: /srv/kvm/bin/vm-del
+    dest: /usr/local/sbin/vm-del
+    state: link
+  ansible.builtin.file:
+    src: /srv/kvm/bin/vm-list
+    dest: /usr/local/sbin/vm-list
+    state: link
+  ansible.builtin.file:
+    src: /srv/kvm/bin/vm-start
+    dest: /usr/local/sbin/vm-start
+    state: link
+  ansible.builtin.file:
+    src: /srv/kvm/bin/vm-stop
+    dest: /usr/local/sbin/vm-stop
+    state: link
