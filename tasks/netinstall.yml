@@ -4,14 +4,14 @@
 - community.libvirt.virt_net:
     command: define
     name: wan01
-    xml: '{{ lookup("template", "if_wan01.xml.j2") }}'
+    xml: templates/if_wan01.xml.j2
     state: active
     autostart: yes
 # create isolated LAN network
 - community.libvirt.virt_net:
     command: define
     name: lan01
-    xml: '{{ lookup("template", "if_lan01.xml.j2") }}'
+    xml: templates/if_lan01.xml.j2
     state: active
     autostart: yes
 # destory default network
