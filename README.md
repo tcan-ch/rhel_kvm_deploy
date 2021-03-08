@@ -30,6 +30,7 @@
 - Scripttemplate von Mel
 - Backup Script von Chris
 - ansible-galaxy collection install community.libvirt
+- dnf install python3-lxml
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
