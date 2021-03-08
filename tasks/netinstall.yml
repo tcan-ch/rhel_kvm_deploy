@@ -19,7 +19,7 @@
     command: destroy
     name: default
 ### adjust iptables
-- name: j2 iptables template deploy
-  template:
-    src: templates/iptables.j2
-    dest: /etc/sysconfig/iptables
+#- name: j2 iptables template deploy
+#  template:
+#    src: templates/iptables.j2
+#    dest: /etc/sysconfig/iptables
