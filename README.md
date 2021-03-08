@@ -29,7 +29,7 @@
 - Templates hochladen für virsh
 - Scripttemplate von Mel
 - Backup Script von Chris
-
+- ansible-galaxy collection install community.libvirt
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
